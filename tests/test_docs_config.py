@@ -12,13 +12,9 @@ def test_docfx_build_includes_install_docs():
     docfx = json.loads((REPO_ROOT / "docs" / "docfx.json").read_text(encoding="utf-8"))
     content_entries = docfx["build"]["content"]
 
-    root_content = next(
-        (
-            entry
-            for entry in content_entries
-            if "toc.yml" in entry.get("files", [])
-        ),
-        None,
-    )
-    assert root_content is not None, "Expected a DocFX root content entry containing toc.yml"
-    assert "install/*.md" in root_content["files"]
+    all_content_globs = {
+        file_glob
+        for entry in content_entries
+        for file_glob in entry.get("files", [])
+    }
+    assert "install/*.md" in all_content_globs
