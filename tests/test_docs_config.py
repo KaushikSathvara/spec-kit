@@ -13,6 +13,12 @@ def test_docfx_build_includes_install_docs():
     content_entries = docfx["build"]["content"]
 
     root_content = next(
-        entry for entry in content_entries if "toc.yml" in entry.get("files", [])
+        (
+            entry
+            for entry in content_entries
+            if "toc.yml" in entry.get("files", [])
+        ),
+        None,
     )
+    assert root_content is not None, "Expected a DocFX root content entry containing toc.yml"
     assert "install/*.md" in root_content["files"]
