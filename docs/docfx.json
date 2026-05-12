@@ -5,6 +5,7 @@
         "files": [
           "*.md",
           "toc.yml",
+          "install/*.md",
           "community/*.md",
           "reference/*.md"
         ]
@@ -70,4 +71,3 @@
     }
   }
 }
-
